@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { FaSearch } from "react-icons/fa";
 
 const SearchBar = ({ onSearch }) => {

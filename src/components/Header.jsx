@@ -6,9 +6,13 @@ import Basket from "./Basket";
 
 const Header = ({
   orders,
+  totalPrice,
+  totalItems,
   onDelete,
   onIncrease,
   onDecrease,
+  onClearCart,
+  onPurchase,
   showHomeLink = false,
 }) => {
   return (
@@ -31,9 +35,13 @@ const Header = ({
 
         <Basket
           orders={orders}
+          totalPrice={totalPrice}
+          totalItems={totalItems}
           onDelete={onDelete}
           onIncrease={onIncrease}
           onDecrease={onDecrease}
+          onClearCart={onClearCart}
+          onPurchase={onPurchase}
         />
       </div>
     </header>

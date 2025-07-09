@@ -5,17 +5,12 @@ import ClearBasket from "./Basket/ClearBasket";
 import OrdersList from "./Basket/OrdersList";
 import EmptyCart from "./Basket/EmptyCart";
 import CartTotal from "./Basket/CartTotal";
-import useCart from "./Hooks/useCart";
-import useClickOutside from "./Hooks/useClickOutSide";
+import useClickOutside from "../Hooks/useClickOutSide";
 
-const Basket = ({ orders, onDelete, onIncrease, onDecrease }) => {
+const Basket = ({ orders, totalPrice, totalItems, onDelete, onIncrease, onDecrease, onClearCart, onPurchase }) => {
   const [cartOpen, setCartOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const { cartRef, cartIconRef } = useClickOutside(cartOpen, setCartOpen);
-  const { totalPrice, totalItems, handlePurchase, clearAllItems } = useCart(
-    orders,
-    onDelete
-  );
 
   const toggleCart = () => setCartOpen((prev) => !prev);
 
@@ -31,12 +26,12 @@ const Basket = ({ orders, onDelete, onIncrease, onDecrease }) => {
   };
 
   const confirmClearCart = () => {
-    clearAllItems();
+    onClearCart();
     setIsConfirmModalOpen(false);
   };
 
   const handlePurchaseClick = () => {
-    handlePurchase();
+    onPurchase();
     setCartOpen(false);
   };
 
