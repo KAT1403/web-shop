@@ -1,10 +1,10 @@
-import Header2 from "../components/Header2";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const AboutUsPage = () => {
   return (
     <div className="wrapper">
-      <Header2 />
+      <Header />
       <main className="about-us-content">
         <section className="about-hero">
           <h1>О нашем магазине</h1>

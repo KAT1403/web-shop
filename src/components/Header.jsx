@@ -13,13 +13,13 @@ const Header = ({
   onDecrease,
   onClearCart,
   onPurchase,
-  showHomeLink = false,
+  isHomePage = false,
 }) => {
   return (
     <header>
       <div>
         <span className="logo">
-          {showHomeLink ? <Link to="/">На главную</Link> : "goMART"}
+          {isHomePage ? "goMART" : <Link to="/">На главную</Link>}
         </span>
         <ul className="nav">
           <li>
@@ -33,16 +33,18 @@ const Header = ({
           </li>
         </ul>
 
-        <Basket
-          orders={orders}
-          totalPrice={totalPrice}
-          totalItems={totalItems}
-          onDelete={onDelete}
-          onIncrease={onIncrease}
-          onDecrease={onDecrease}
-          onClearCart={onClearCart}
-          onPurchase={onPurchase}
-        />
+        {isHomePage && (
+          <Basket
+            orders={orders}
+            totalPrice={totalPrice}
+            totalItems={totalItems}
+            onDelete={onDelete}
+            onIncrease={onIncrease}
+            onDecrease={onDecrease}
+            onClearCart={onClearCart}
+            onPurchase={onPurchase}
+          />
+        )}
       </div>
     </header>
   );

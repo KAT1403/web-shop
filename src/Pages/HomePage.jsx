@@ -36,6 +36,7 @@ const HomePage = () => {
         onDecrease={(id) => updateQuantity(id, "decrease")}
         onClearCart={clearCart}
         onPurchase={handlePurchase}
+        isHomePage={true}
       />
       {!isMobile && <PresentationSlider />}
       <Categories chooseCategory={handleCategoryChange} />

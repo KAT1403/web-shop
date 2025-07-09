@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Header2 from "../components/Header2";
+import Header from "../components/Header";
 
 const ContactPage = () => {
   return (
     <div className="wrapper">
-      <Header2 />
+      <Header />
       <div className="contact-content">
         <div className="contact-hero">
           <h1>Контакты</h1>

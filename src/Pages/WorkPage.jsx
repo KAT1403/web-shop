@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Header2 from "../components/Header2";
+import Header from "../components/Header";
 
 const WorkPage = () => {
   const [formData, setFormData] = useState({
@@ -109,7 +109,7 @@ const WorkPage = () => {
 
   return (
     <div className="wrapper">
-      <Header2 />
+      <Header />
       <div className="work-content">
         <div className="work-hero">
           <h1>Станьте частью команды galmart</h1>
