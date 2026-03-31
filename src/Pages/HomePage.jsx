@@ -1,13 +1,14 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Items from "../components/Items";
-import Categories from "../components/Categories";
-import SearchBar from "../components/SearchBar";
-import PresentationSlider from "../components/PresentationSlider";
-import useMobile from "../Hooks/useMobile";
-import useHomePage from "../Hooks/useHomePage";
+import Header from "../widgets/header/Header";
+import Footer from "../widgets/footer/Footer";
+import Items from "../widgets/product-list/Items";
+import Categories from "../features/filter-products/Categories";
+import SearchBar from "../features/search-products/SearchBar";
+import PresentationSlider from "../widgets/presentation-slider/PresentationSlider";
+import useMobile from "../shared/lib/hooks/useMobile";
+import useHomePage from "../shared/lib/hooks/useHomePage";
+import LoadingSpinner from "../shared/ui/LoadingSpinner";
 
 const HomePage = () => {
   const isMobile = useMobile();
@@ -23,6 +24,7 @@ const HomePage = () => {
     handlePurchase,
     handleCategoryChange,
     handleSearch,
+    loading,
   } = useHomePage();
 
   return (
@@ -41,7 +43,7 @@ const HomePage = () => {
       {!isMobile && <PresentationSlider />}
       <Categories chooseCategory={handleCategoryChange} />
       <SearchBar onSearch={handleSearch} />
-      <Items items={filteredItems} onAdd={addToCart} />
+      {loading ? <LoadingSpinner /> : <Items items={filteredItems} onAdd={addToCart} />}
       <Footer />
       <ToastContainer newestOnTop />
     </div>

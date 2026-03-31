@@ -1,5 +1,3 @@
-// Хук для клика вне элемента
-
 import { useEffect, useRef } from "react";
 
 const useClickOutside = (isOpen, setIsOpen) => {

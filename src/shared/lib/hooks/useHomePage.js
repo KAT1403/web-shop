@@ -1,13 +1,12 @@
 import { useState, useMemo, useCallback } from 'react';
 import useShoppingCart from './useShoppingCart';
-import itemsList from '../Data/ItemsList';
-
-const items = itemsList;
+import useFirebaseProducts from './useFirebaseProducts';
 
 const useHomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState("Все товары");
   const [searchQuery, setSearchQuery] = useState("");
   const cart = useShoppingCart();
+  const { products: items, loading } = useFirebaseProducts();
 
   const filteredItems = useMemo(() => {
     if (searchQuery.trim()) {
@@ -24,7 +23,7 @@ const useHomePage = () => {
     }
 
     return items;
-  }, [selectedCategory, searchQuery]);
+  }, [selectedCategory, searchQuery, items]);
 
 
 
@@ -40,6 +39,7 @@ const useHomePage = () => {
     filteredItems,
     handleCategoryChange,
     handleSearch,
+    loading,
     ...cart,
   };
 };

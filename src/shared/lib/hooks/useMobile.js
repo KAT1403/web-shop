@@ -1,5 +1,3 @@
-// Хук для управления мобильной версией
-
 import { useState, useEffect } from "react";
 
 const useMobile = () => {

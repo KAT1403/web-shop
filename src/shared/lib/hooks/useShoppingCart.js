@@ -1,8 +1,23 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { createOrder } from '../../../entities/order/api/orderService';
+import { auth } from '../../api/firebase/firebaseConfig';
 
 const useShoppingCart = () => {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState(() => {
+    try {
+      const item = localStorage.getItem('cart');
+      return item ? JSON.parse(item) : [];
+    } catch (e) {
+      console.warn("Ошибка при загрузке корзины", e);
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(orders));
+  }, [orders]);
+
   const lastToastTimestamp = useRef(0);
 
   const addToCart = useCallback((item, quantity = 1) => {
@@ -65,7 +80,7 @@ const useShoppingCart = () => {
     return orders.reduce((total, item) => total + item.quantity, 0);
   }, [orders]);
 
-  const handlePurchase = useCallback(() => {
+  const handlePurchase = useCallback(async () => {
     if (orders.length === 0) {
       toast.info("Корзина пуста! 🛒", {
         position: "bottom-right",
@@ -74,17 +89,29 @@ const useShoppingCart = () => {
       return;
     }
 
+    const currentUserId = auth.currentUser?.uid;
+    if (!currentUserId) {
+      toast.error("Необходимо авторизоваться для совершения покупки!");
+      return;
+    }
+
     const totalPrice = getTotalPrice();
     const totalItems = getTotalItems();
 
-    toast.success(
-      `Спасибо за покупку!\nТоваров: ${totalItems} шт.\nСумма: ${totalPrice} ₸`,
-      {
-        position: "bottom-right",
-        autoClose: 3000,
-      }
-    );
-    clearCart();
+    try {
+      await createOrder(currentUserId, orders, totalPrice, totalItems);
+      
+      toast.success(
+        `Заказ успешно оформлен!\nТоваров: ${totalItems} шт.\nСумма: ${totalPrice} ₸`,
+        {
+          position: "bottom-right",
+          autoClose: 3000,
+        }
+      );
+      clearCart();
+    } catch (error) {
+      toast.error("Ошибка при оформлении заказа. Попробуйте позже.");
+    }
   }, [orders, getTotalPrice, getTotalItems, clearCart]);
 
   return {

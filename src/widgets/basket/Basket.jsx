@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { ShoppingBasket } from "lucide-react";
 import { toast } from "react-toastify";
-import ClearBasket from "./Basket/ClearBasket";
-import OrdersList from "./Basket/OrdersList";
-import EmptyCart from "./Basket/EmptyCart";
-import CartTotal from "./Basket/CartTotal";
-import useClickOutside from "../Hooks/useClickOutSide";
+import ClearBasket from "./ui/ClearBasket";
+import OrdersList from "./ui/OrdersList";
+import EmptyCart from "./ui/EmptyCart";
+import CartTotal from "./ui/CartTotal";
+import useClickOutside from "../../shared/lib/hooks/useClickOutSide";
 
 const Basket = ({ orders, totalPrice, totalItems, onDelete, onIncrease, onDecrease, onClearCart, onPurchase }) => {
   const [cartOpen, setCartOpen] = useState(false);

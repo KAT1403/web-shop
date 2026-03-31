@@ -1,5 +1,3 @@
-// Компонент слайдера
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Keyboard, Autoplay } from "swiper/modules";
 

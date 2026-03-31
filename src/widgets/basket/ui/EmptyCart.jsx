@@ -1,4 +1,3 @@
-// Компонент пустой корзины
 const EmptyCart = () => (
   <div className="empty">
     <h2>Корзина пуста</h2>
